@@ -1,0 +1,47 @@
+GET http://127.0.0.1:8000/api/owners
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoxMSwibmFtZSI6Im5vdmkxIiwiaWF0IjoxNjQwNzAzNTAwfQ.qlwC0FwSoK2sZN58icoSp3eDG_lZCXoReBlQ0D5Jv6U
+
+###
+
+POST http://127.0.0.1:9000/loginCoach
+Content-Type: application/json
+
+{
+    "name": "coach1",
+    "password": "coach1"
+}
+
+###
+POST http://127.0.0.1:9000/registerCoach
+Content-Type: application/json
+
+{
+    "name":"coach1",
+    "password":"coach1",
+    "email": "coach1@gmail.com",
+    "age": 45,
+    "playerId": 12
+}
+
+###
+POST http://127.0.0.1:8000/api/matches
+Content-Type: application/json
+
+{
+    "id": 5,
+    "court": 5,
+    "date": "12-07-2022",
+    "time": 12,
+    "round": 7,
+    "createdAt": "2021-12-28T10:21:17.000Z",
+    "updatedAt": "2021-12-28T10:21:17.000Z",
+    "tournamentId": 1
+}
+
+###
+DELETE http://127.0.0.1:8000/api/owners/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjo4LCJuYW1lIjoia2FsdSIsImlhdCI6MTY0MDcwMzE3NX0.xUOiQePCPMfuk9bKmwI7Xz_ZccaFJNGFkJO-4RIMOr8
+
+###
+GET http://127.0.0.1:8000/api/coaches
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjo2LCJuYW1lIjoiY29hY2gxIiwiaWF0IjoxNjQwNzA0ODEzfQ.XkKyAzggNCrkN6yrB01HB8dsqAiAtSdis0qzpbbQSpI

@@ -17,11 +17,23 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: false,
+      validate: {
+        len: { 
+           args: [2, 30],
+           msg: "The name length should be between 2 and 30 characters."
+        }
+     }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: { 
+           args: [4, 100],
+           msg: "The password length should be between 4 and 100 characters."
+        }
+     }
     },
     email: {
       type: DataTypes.STRING,
@@ -30,6 +42,20 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: {
           msg: "Nije email"
+        }
+      }
+    },
+    age: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate:{
+        isInt:{
+          msg: "Unos broja godina nije validan. Nije broj."
+        },
+        checkAge(value) {
+          if (value < 5 || value >  100) {
+            throw new Error('Neispravan unos broja godina');
+          }
         }
       }
     }
