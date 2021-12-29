@@ -1,47 +1,32 @@
-GET http://127.0.0.1:8000/api/owners
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjoxMSwibmFtZSI6Im5vdmkxIiwiaWF0IjoxNjQwNzAzNTAwfQ.qlwC0FwSoK2sZN58icoSp3eDG_lZCXoReBlQ0D5Jv6U
-
-###
-
-POST http://127.0.0.1:9000/loginCoach
+POST http://127.0.0.1:9000/login
 Content-Type: application/json
 
 {
-    "name": "coach1",
-    "password": "coach1"
+    "email": "nikola@gmail.com",
+    "password": "nikola"
 }
 
 ###
-POST http://127.0.0.1:9000/registerCoach
+POST http://127.0.0.1:8000/admin/players
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2FjaElkIjoyLCJjb2FjaCI6Im5pa29sYUBnbWFpbC5jb20iLCJpYXQiOjE2NDA4MTU2MDd9.6yRP1vOM0CXlL7Np1vfJ5RiWO59euktwPRJ_WSgJrZo
+
 Content-Type: application/json
 
 {
-    "name":"coach1",
-    "password":"coach1",
-    "email": "coach1@gmail.com",
-    "age": 45,
-    "playerId": 12
+    "name": "Novak Djokovic",
+    "password": "novaknovak",
+    "email": "novak@gmail.com",
+    "age": 31,
+    "ranking": 1,
+    "coachId": 1,
+    "matchId": 1,
+    "playerId": 2
 }
 
 ###
-POST http://127.0.0.1:8000/api/matches
-Content-Type: application/json
-
-{
-    "id": 5,
-    "court": 5,
-    "date": "12-07-2022",
-    "time": 12,
-    "round": 7,
-    "createdAt": "2021-12-28T10:21:17.000Z",
-    "updatedAt": "2021-12-28T10:21:17.000Z",
-    "tournamentId": 1
-}
-
-###
-DELETE http://127.0.0.1:8000/api/owners/1
+POST http://127.0.0.1:8000/admin/players
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjo4LCJuYW1lIjoia2FsdSIsImlhdCI6MTY0MDcwMzE3NX0.xUOiQePCPMfuk9bKmwI7Xz_ZccaFJNGFkJO-4RIMOr8
 
 ###
-GET http://127.0.0.1:8000/api/coaches
+GET http://127.0.0.1:8000/admin/coaches
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvd25lcklkIjo2LCJuYW1lIjoiY29hY2gxIiwiaWF0IjoxNjQwNzA0ODEzfQ.XkKyAzggNCrkN6yrB01HB8dsqAiAtSdis0qzpbbQSpI

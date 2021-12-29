@@ -6,15 +6,11 @@ const owners = require('./routes/owners');
 const players = require('./routes/players');
 const tournaments = require('./routes/tournaments');
 const path = require('path');
-
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const app = express();
 
-app.use('/api', coaches);
-app.use('/api', matches);
-app.use('/api', owners);
-app.use('/api', players);
-app.use('/api', tournaments);
-
+app.use("/admin", coaches, matches, owners, players, tournaments);
 
 function getCookies(req) {
     if (req.headers.cookie == null) return {};
@@ -36,11 +32,11 @@ function authToken(req, res, next) {
   
     if (token == null) return res.redirect(301, '/login');
   
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, owner) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, coach) => {
     
         if (err) return res.redirect(301, '/login');
     
-        req.owner = owner;
+        req.coach = coach;
     
         next();
     });
@@ -54,9 +50,8 @@ app.get('/login', (req, res) => {
     res.sendFile('login.html', { root: './static' });
 });
 
-
 app.get('/', authToken, (req, res) => {
-    res.sendFile('index.html');
+    res.sendFile('index.html', { root: './static' });
 });
 
 app.use(express.static(path.join(__dirname, 'static')));

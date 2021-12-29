@@ -58,6 +58,17 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       }
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        checkRole(value){
+          if(value != 'admin' && value != 'moderator' && value != 'regular'){
+            throw new Error('Neispravna uloga. Uloga moze biti: 1. admin 2. moderator 3. regular');
+          }
+        }
+      }
     }
   }, {
     sequelize,

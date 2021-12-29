@@ -1,5 +1,7 @@
 const express = require('express');
 const { sequelize, Tournaments} = require('../models');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();    
 
 const route = express.Router();
 route.use(express.json());
@@ -11,6 +13,24 @@ route.get('/tournaments', (req, res) => {
         .catch( err => res.status(500).json(err) );
     
 });
+
+function authToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+  
+    if (token == null) return res.status(401).json({ msg: err });
+  
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, coach) => {
+    
+        if (err) return res.status(403).json({ msg: err });
+    
+        req.coach = coach;
+    
+        next();
+    });
+}
+
+route.use(authToken);
 
 route.post('/tournaments', (req, res) => {
     Tournaments.create({

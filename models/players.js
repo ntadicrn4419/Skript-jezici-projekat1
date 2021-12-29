@@ -28,16 +28,6 @@ module.exports = (sequelize, DataTypes) => {
         }
      }
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: { 
-           args: [4, 20],
-           msg: "The password length should be between 4 and 20 characters."
-        }
-     }
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,

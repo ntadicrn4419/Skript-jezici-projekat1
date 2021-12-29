@@ -1,6 +1,8 @@
 const express = require('express');
 const { sequelize, Coaches} = require('../models');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();    
+
 const route = express.Router();
 route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
