@@ -8,7 +8,7 @@
     <title>Tournaments</title> 
 </head>
 <body onload="init()">
-    <h1>Tournaments</h1>
+    <h1>TURNIRI</h1>
     <table id="tournament-table">
         <thead>
             <tr>
@@ -17,10 +17,54 @@
                 <th>Location</th>
                 <th>Start date</th>
                 <th>End date</th>
+                <th>Owner ID </th>
             </tr>
         </thead>
         <tbody id="tournaments">
         </tbody>
     </table>
+
+    <h2>Dodaj novi Turnir:</h2>
+    <div id="new-tournament-form">
+        <form action="/admin/tournaments" method="post">
+            <input type="text" id="name" name="name" placeholder="Enter name of the tournament" required/>
+            <br>
+            <input type="text" id="location" name="location" placeholder="Enter location of the tournament" required/>
+            <br>
+            <input type="text" id="startDate" name="startDate" placeholder="Enter start date of the tournament" required/>
+            <br>
+            <input type="text" id="endDate" name="endDate" placeholder="Enter end date of the tournament" required/>
+            <br>
+            <input type="number" id="ownerId" name="ownerId" placeholder="Enter tournament owner ID" required/>
+            <br>
+            <button type="submit" id="add-tournament">Add tournament</button>
+        </form>   
+    </div>
+
+    <h2>Izbrisi turnir:</h2>
+    <div id="delete-tournament-form">
+        <form action="/admin/tournaments" method="delete">
+            <label>Izaberite turnir koji zelite da izbrisete:</label>
+            <br>
+            <select name="tournaments" class="tournaments-dropdown"></select>
+            <br>
+            <button type="submit" id="delete-tournament">Delete tournament</button>
+        </form>   
+    </div>
+
+    <h2>Izmeni turnir:</h2>
+    <div id="update-tournament-form">
+        <form action="/admin/tournaments" method="put">
+            <label>Izaberite turnir koji zelite da izmenite:</label>
+            <select name="tournaments" class="tournaments-dropdown"></select>
+            <br>
+            <input type="text" id="startDate_update" name="startDate_update" placeholder="Enter start date of the tournament" required/>
+            <br>
+            <input type="text" id="endDate_update" name="endDate_update" placeholder="Enter end date of the tournament" required/>
+            <br>
+            <button type="submit" id="update-tournament">Update tournament data</button>
+        </form>   
+    </div>
+
 </body>
 </html>
