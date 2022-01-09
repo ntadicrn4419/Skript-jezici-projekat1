@@ -17,10 +17,56 @@
                 <th>Date</th>
                 <th>Time</th>
                 <th>Round</th>
+                <th>TournamentID</th>
             </tr>
         </thead>
         <tbody id="matches">
         </tbody>
     </table>
+    <h2>Dodaj novi mec:</h2>
+    <div id="new-match-form">
+        <form action="/admin/matches" method="post">
+            <input type="number" id="court" min="1" max="15" step="1" name="court" placeholder="Enter court number" required/>
+            <br>
+            <input type="text" id="date" name="date" placeholder="Enter date of the match" required/>
+            <br>
+            <input type="number" id="time" min="1" max="24" step="1" placeholder="Enter time of the match (exact hour)" required/>
+            <br>
+            <input type="number" id="round" min="1" max="7" step="1" placeholder="Round" required />
+            <br>
+            <input type="number" id="tournamentId" placeholder="Tournament ID" required />
+            <br>
+            <button type="submit" id="add-match">Add match</button>
+        </form>   
+    </div>
+
+    <h2>Izbrisi mec:</h2>
+    <div id="delete-match-form">
+        <form action="/admin/matches" method="delete">
+            <label>Izaberite mec koji zelite da izbrisete:</label>
+            <br>
+            <select name="matches" class="matches-dropdown"></select>
+            <br>
+            <button type="submit" id="delete-match">Delete match</button>
+        </form>   
+    </div>
+
+    <h2>Izmeni mec:</h2>
+    <div id="update-match-form">
+        <form action="/admin/matches" method="put">
+            <label>Izaberite mec koji zelite da izmenite:</label>
+            <br>
+            <select name="matches" class="matches-dropdown"></select>
+            <br>
+            <input type="number" id="court_update" min="1" max="15" step="1" name="court_update" placeholder="Enter court number" required/>
+            <br>
+            <input type="text" id="date_update" name="date_update" placeholder="Enter date of the match" required/>
+            <br>
+            <input type="number" id="time_update" min="1" max="24" step="1" placeholder="Enter time of the match (exact hour)" required/>
+            <br>
+            <button type="submit" id="update-match">Update match data</button>
+        </form>   
+    </div>
+
 </body>
 </html>

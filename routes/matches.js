@@ -57,7 +57,8 @@ route.put('/matches/:id', (req, res) => {
         .then( match => {
             match.court = req.body.court;
             match.time = req.body.time;
-            
+            match.date = req.body.date;
+
             match.save()
                 .then( rows => res.json(rows) )
                 .catch( err => res.status(500).json(err) );

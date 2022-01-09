@@ -39,7 +39,7 @@ app.post('/register', (req, res) => {
         
         res.json({ token: token });
 
-    }).catch( err => res.status(500).json(err) );
+    }).catch( err => res.status(500).json({msg: "Input error or user with such email already exists"}) );
 });
 
 app.post('/login', (req, res) => {
@@ -59,7 +59,7 @@ app.post('/login', (req, res) => {
                 res.status(400).json({ msg: "Password is incorrect."});
             }
         })
-        .catch( err => res.status(500).json({msg: "Email is incorrect."}) );//err
+        .catch( err => res.status(500).json({msg: "Email is incorrect."}) );
 });
 
 app.listen({ port: 9000 }, async () => {
