@@ -1,28 +1,137 @@
-function init() {
-
-    const cookies = document.cookie.split('=');
-    const token = cookies[cookies.length - 1];
-    
+function updateView(token){
     fetch('http://127.0.0.1:8000/admin/owners', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     })
-        .then(res => res.json())
-        .then(data => {
+    .then(res => res.json())
+    .then(data => {
 
-            const tableBody = document.getElementById('owners');
+        const ownersDropdowns = document.getElementsByClassName('owners-dropdown');
+        const tableBody = document.getElementById('owners');
+        tableBody.innerHTML = "";
+        ownersDropdowns.innerHTML = ""
+        data.forEach(owner => {
 
-            data.forEach(owner => {
+            for(let i = 0; i < ownersDropdowns.length; i++){
+               ownersDropdowns[i].innerHTML += `<option value="${owner.id}">Name:${owner.name} - Email:${owner.email}</option>`
+            }
 
-                tableBody.innerHTML += 
-                    `
-                    <tr>
-                        <td>${owner.id}</td>
-                        <td>${owner.name}</td>
-                        <td>${owner.email}</td>
-                    </tr>
-                    `;
-            })
-        });  
+            tableBody.innerHTML += 
+                 `
+                 <tr>
+                    <td>${owner.id}</td>
+                    <td>${owner.name}</td>
+                    <td>${owner.email}</td>
+                </tr>
+                 `;
+        })
+    });
+}
+function init() {
+
+    const cookies = document.cookie.split('=');
+    const token = cookies[cookies.length - 1];
+    
+    updateView(token);
+
+    document.getElementById("add-owner").addEventListener("click", e =>{
+        e.preventDefault();
+        const data = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+        }
+
+        let error = false;
+        for(el in data){
+            if(data[el] == "") {
+                error = true;
+            }
+        }
+
+        if(error){
+            alert("Greska pri unosu. Ostalo je prazno polje.")
+            return;
+        }
+        fetch('http://127.0.0.1:8000/admin/owners', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data) 
+        })
+            .then( res => res.json() )
+            .then( data => {
+                if(data.msg){
+                    alert(data.msg);
+                }
+                else {
+                    location.reload();
+                }
+            });
+    });
+    document.getElementById("delete-owner").addEventListener("click", e =>{
+        e.preventDefault();
+       
+        const data = {
+            id: document.getElementsByClassName('owners-dropdown')[0].value
+        }
+
+        fetch('http://127.0.0.1:8000/admin/owners/' + data.id, {
+            method: 'DELETE',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data) 
+        })
+            .then( res => res.json() )
+            .then( data => {
+                if(data.msg){
+                    alert(data.msg);
+                }else{
+                    location.reload();
+                }
+            });
+    });
+    document.getElementById("update-owner").addEventListener("click", e =>{
+        e.preventDefault();
+        
+
+        const data = {
+            id: document.getElementsByClassName('owners-dropdown')[1].value,
+            email: document.getElementById('email_update').value,
+            name: document.getElementById('name_update').value
+        }
+
+        let error = false;
+        for(el in data){
+            if(data[el] == "") {
+                error = true;
+            }
+        }
+
+        if(error){
+            alert("Greska pri unosu.")
+            return;
+        }
+        fetch('http://127.0.0.1:8000/admin/owners/' + data.id, {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data) 
+        })
+            .then( res => res.json() )
+            .then( data => {
+                if(data.msg){
+                    alert(data.msg);
+                }
+                else {
+                    location.reload();
+                }
+            });
+    }); 
 }

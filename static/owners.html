@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="owners.js"></script>
-    <title>Owners</title> 
+    <title>Vlasnici turnira</title> 
 </head>
 <body onload="init()">
-    <h1>Owners</h1>
+    <h1>Vlasnici turnira</h1>
     <table id="owner-table">
         <thead>
             <tr>
@@ -20,5 +20,39 @@
         <tbody id="owners">
         </tbody>
     </table>
+    <h2>Dodaj novog vlasnika:</h2>
+    <div id="new-owner-form">
+        <form action="/admin/owners" method="post">
+            <input type="text" id="name" name="name" placeholder="Unesite ime vlasnika" required/>
+            <br>
+            <input type="text" id="email" placeholder="Unesite email vlasnika" required />
+            <br>
+            <button type="submit" id="add-owner">Dodaj vlasnika</button>
+        </form>   
+    </div>
+    <h2>Izbrisi vlasnika:</h2>
+    <div id="delete-owner-form">
+        <form action="/admin/owners" method="delete">
+            <label>Izaberite vlasnika koga zelite da izbrisete:</label>
+            <br>
+            <select name="owners" class="owners-dropdown"></select>
+            <br>
+            <button type="submit" id="delete-owner">Izbrisi vlasnika</button>
+        </form>   
+    </div>
+    <h2>Izmeni vlasnika:</h2>
+    <div id="update-owner-form">
+        <form action="/admin/owners" method="put">
+            <label>Izaberite vlasnika cije podatke zelite da izmenite:</label>
+            <br>
+            <select name="owners" class="owners-dropdown"></select>
+            <br>
+            <input type="text" id="name_update" name="name_update" placeholder="Unesite ime vlasnika" required/>
+            <br>
+            <input type="text" id="email_update" placeholder="Unesite email vlasnika" required />
+            <br>
+            <button type="submit" id="update-owner">Izmenite podatke o vlasniku</button>
+        </form>   
+    </div>
 </body>
 </html>

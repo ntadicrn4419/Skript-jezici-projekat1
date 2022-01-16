@@ -10,7 +10,7 @@ function updateView(token){
         const matchesDropdowns = document.getElementsByClassName('matches-dropdown');
         const tableBody = document.getElementById('matches');
         tableBody.innerHTML = "";
-        matchesDropdowns.innerHTML = ""
+        matchesDropdowns.innerHTML = "";
         data.forEach(match => {
 
             for(let i = 0; i < matchesDropdowns.length; i++){
@@ -23,9 +23,9 @@ function updateView(token){
                     <td>${match.id}</td>
                     <td>${match.court}</td>
                     <td>${match.date}</td>
-                     <td>${match.time}</td>
-                     <td>${match.round}</td>
-                     <td>${match.tournamentId}</td></tr>
+                    <td>${match.time}</td>
+                    <td>${match.round}</td>
+                    <td>${match.tournamentId}</td>
                 </tr>
                  `;
         })
@@ -74,12 +74,6 @@ function init() {
                     alert(data.msg);
                 }
                 else {
-                    // updateView(token);
-                    // document.getElementById('court').value = ""
-                    // document.getElementById('date').value = ""
-                    // document.getElementById('time').value = ""
-                    // document.getElementById('round').value = ""
-                    // document.getElementById('tournamentId').value = ""
                     location.reload();
                 }
             });

@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="coaches.js"></script>
-    <title>Coaches</title> 
+    <title>Treneri</title> 
 </head>
 <body onload="init()">
-    <h1>Coaches</h1>
+    <h1>Treneri</h1>
     <table id="coach-table">
         <thead>
             <tr>
@@ -22,5 +22,29 @@
         <tbody id="coaches">
         </tbody>
     </table>
+    <h2>Izbrisi trenera:</h2>
+    <div id="delete-coach-form">
+        <form action="/admin/coaches" method="delete">
+            <label>Izaberite trenera koga zelite da izbrisete:</label>
+            <br>
+            <select name="coaches" class="coaches-dropdown"></select>
+            <br>
+            <button type="submit" id="delete-coach">Izbrisi trenera</button>
+        </form>   
+    </div>
+    <h2>Izmenite trenera:</h2>
+    <div id="update-coach-form">
+        <form action="/admin/coaches" method="put">
+            <label>Izaberite trenera cije podatke zelite da izmenite:</label>
+            <br>
+            <select name="coaches" class="coaches-dropdown"></select>
+            <br>
+            <input type="text" id="email_update" name="email_update" placeholder="Unesite email" required/>
+            <br>
+            <input type="number" id="playerId_update" placeholder="Unesite ID igraca sa kojim ovaj trener radi" required/>
+            <br>
+            <button type="submit" id="update-match">Izmenite podatke o treneru</button>
+        </form>   
+    </div>
 </body>
 </html>

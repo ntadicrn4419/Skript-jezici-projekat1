@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="players.js"></script>
-    <title>Players</title> 
+    <title>Igraci</title> 
 </head>
 <body onload="init()">
-    <h1>Players</h1>
+    <h1>Igraci</h1>
     <table id="player-table">
         <thead>
             <tr>
@@ -19,10 +19,63 @@
                 <th>Email</th>
                 <th>Match ID</th>
                 <th>Coach ID</th>
+                <th>Ranking</th>
             </tr>
         </thead>
         <tbody id="players">
         </tbody>
     </table>
+    <h2>Dodaj novog igraca:</h2>
+    <div id="new-player-form">
+        <form action="/admin/players" method="post">
+            <input type="text" id="name" name="name" placeholder="Unesite ime igraca" required/>
+            <br>
+            <input type="number" id="age" name="age" min="5" max="100" step="1" placeholder="Unesite godine starosti igraca" required/>
+            <br>
+            <input type="number" id="ranking" name="ranking" min="1" max="1000" step="1" placeholder="Unesite ranking igraca" required/>
+            <br>
+            <input type="number" id="playerId" placeholder="Unesite ID igraca protiv koga ovaj igrac igra" required/>
+            <br>
+            <input type="text" id="email" placeholder="Unesite email igraca" required />
+            <br>
+            <input type="number" id="matchId" placeholder="Unesite ID meca u kome ovaj igrac ucestvuje." required />
+            <br>
+            <input type="number" id="coachId" placeholder="Unesite ID trenera sa kojim ovaj igrac radi" required />
+            <br>
+            <button type="submit" id="add-player">Dodaj igraca</button>
+        </form>   
+    </div>
+    <h2>Izbrisi igraca:</h2>
+    <div id="delete-player-form">
+        <form action="/admin/players" method="delete">
+            <label>Izaberite igraca koga zelite da izbrisete:</label>
+            <br>
+            <select name="players" class="players-dropdown"></select>
+            <br>
+            <button type="submit" id="delete-player">Izbrisi igraca</button>
+        </form>   
+    </div>
+    <h2>Izmeni igraca:</h2>
+    <div id="update-player-form">
+        <form action="/admin/players" method="put">
+            <label>Izaberite igraca cije podatke zelite da izmenite:</label>
+            <br>
+            <select name="players" class="players-dropdown"></select>
+            <br>
+            <input type="number" id="age_update" name="age_update" min="5" max="100" step="1" placeholder="Unesite godine starosti igraca" required/>
+            <br>
+            <input type="number" id="playerId_update" placeholder="Unesite ID igraca protiv koga ovaj igrac igra" required/>
+            <br>
+            <input type="text" id="email_update" placeholder="Unesite email igraca" required />
+            <br>
+            <input type="number" id="ranking_update" name="ranking" min="1" max="1000" step="1" placeholder="Unesite ranking igraca" required/>
+            <br>
+            <input type="number" id="matchId_update" placeholder="Unesite ID meca u kome ovaj igrac ucestvuje." required />
+            <br>
+            <input type="number" id="coachId_update" placeholder="Unesite ID trenera sa kojim ovaj igrac radi" required />
+            <br>
+            <button type="submit" id="update-player">Izmenite podatke o igracu</button>
+        </form>   
+    </div>
 </body>
 </html>

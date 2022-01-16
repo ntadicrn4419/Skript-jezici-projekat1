@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize, Matches} = require('../models');
+const { sequelize, Matches, Coaches} = require('../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();    
 
@@ -33,15 +33,24 @@ route.get('/matches', (req, res) => {
 });
 
 route.post('/matches', (req, res) => {
-    Matches.create({
-        court: req.body.court,
-        time: req.body.time,
-        tournamentId: req.body.tournamentId,
-        date: req.body.date,
-        round: req.body.round
-     })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+    Coaches.findOne({where: {id: req.coach.coachId}})
+        .then(coach => {
+            if(coach.role == "admin"){
+
+                Matches.create({
+                    court: req.body.court,
+                    time: req.body.time,
+                    tournamentId: req.body.tournamentId,
+                    date: req.body.date,
+                    round: req.body.round
+                 })
+                    .then( rows => res.json(rows) )
+                    .catch( err => res.status(500).json(err) );
+            }else{
+                res.status(403).json({ msg: "Jedino admin moze da dodaje meceve."});
+            }
+        })
+        .catch(err => res.status(500).json(err));
 });
 
 route.get('/matches/:id', (req, res) => {
@@ -52,30 +61,46 @@ route.get('/matches/:id', (req, res) => {
 });
 
 route.put('/matches/:id', (req, res) => {
-    
-    Matches.findOne({ where: { id: req.params.id }})
-        .then( match => {
-            match.court = req.body.court;
-            match.time = req.body.time;
-            match.date = req.body.date;
+    Coaches.findOne({where: {id: req.coach.coachId}})
+    .then(coach => {
+        if(coach.role == "admin"){
+            Matches.findOne({ where: { id: req.params.id }})
+                .then( match => {
+                    match.court = req.body.court;
+                    match.time = req.body.time;
+                    match.date = req.body.date;
 
-            match.save()
-                .then( rows => res.json(rows) )
-                .catch( err => res.status(500).json(err) );
+                    match.save()
+                        .then( rows => res.json(rows) )
+                        .catch( err => res.status(500).json(err) );
         })
         .catch( err => res.status(500).json(err) );
+        }else{
+            res.status(403).json({ msg: "Jedino admin moze da azurira meceve."});
+        }
+    })
+    .catch(err => res.status(500).json(err));
+    
 
 });
 
 route.delete('/matches/:id', (req, res) => {
 
-    Matches.findOne({ where: { id: req.params.id } })
-        .then( match => {
-            match.destroy()
-                .then( rows => res.json(rows) )
+    Coaches.findOne({where: {id: req.coach.coachId}})
+        .then(coach => {
+            if(coach.role == "admin"){
+                Matches.findOne({ where: { id: req.params.id } })
+                .then( match => {
+                    match.destroy()
+                        .then( rows => res.json(rows) )
+                        .catch( err => res.status(500).json(err) );
+                })
                 .catch( err => res.status(500).json(err) );
+            }else{
+                res.status(403).json({ msg: "Jedino admin moze da brise meceve."});
+            }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch(err => res.status(500).json(err));
 });
 
 module.exports = route;

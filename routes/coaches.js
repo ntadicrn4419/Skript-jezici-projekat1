@@ -53,30 +53,44 @@ route.get('/coaches/:id', (req, res) => {
 });
 
 route.put('/coaches/:id', (req, res) => {
+    Coaches.findOne({where: {id: req.coach.coachId}})
+    .then(coach => {
+        if(coach.role == "admin"){
+            Coaches.findOne({ where: { id: req.params.id }})
+            .then( coach => {
+                coach.email = req.body.email;
+                coach.playerId = req.body.playerId;
     
-    Coaches.findOne({ where: { id: req.params.id }})
-        .then( coach => {
-            coach.password = req.body.password;
-            coach.email = req.body.email;
-            coach.playerId = req.body.playerId;
-
-            coach.save()
-                .then( rows => res.json(rows) )
-                .catch( err => res.status(500).json(err) );
-        })
-        .catch( err => res.status(500).json(err) );
-
+                coach.save()
+                    .then( rows => res.json(rows) )
+                    .catch( err => res.status(500).json(err) );
+            })
+            .catch( err => res.status(500).json(err) );
+        }else{
+            res.status(403).json({ msg: "Jedino admin moze da dodaje meceve."});
+        }
+    })
+    .catch(err => res.status(500).json(err));
+   
 });
 
 route.delete('/coaches/:id', (req, res) => {
-
-    Coaches.findOne({ where: { id: req.params.id } })
-        .then( coach => {
-            coach.destroy()
-                .then( rows => res.json(rows) )
-                .catch( err => res.status(500).json(err) );
+    Coaches.findOne({where: {id: req.coach.coachId}})
+    .then(coach => {
+        if(coach.role == "admin"){
+            Coaches.findOne({ where: { id: req.params.id } })
+            .then( coach => {
+                coach.destroy()
+                    .then( rows => res.json(rows) )
+                    .catch( err => res.status(500).json(err) );
         })
         .catch( err => res.status(500).json(err) );
+        }else{
+            res.status(403).json({ msg: "Jedino admin moze da brise druge trenere."});
+        }
+    })
+    .catch(err => res.status(500).json(err));
+    
 });
 
 module.exports = route;

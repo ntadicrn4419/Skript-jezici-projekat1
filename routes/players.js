@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize, Players} = require('../models');
+const { sequelize, Players, Coaches} = require('../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();    
 
@@ -33,19 +33,28 @@ route.get('/players', (req, res) => {
 });
 
 route.post('/players', (req, res) => {
-    Players.create({
-        name: req.body.name,
-        password: req.body.password,
-        email: req.body.email,
-        age: req.body.age,
-        ranking: req.body.ranking,
-        playerId: req.body.playerId,
-        matchId: req.body.matchId,
-        coachId: req.body.coachId
-
-     })
-        .then( rows => res.json(rows) )
-        .catch( err => res.status(500).json(err) );
+    Coaches.findOne({where: {id: req.coach.coachId}})
+    .then(coach => {
+        if(coach.role == "admin"){
+            Players.create({
+                name: req.body.name,
+                password: req.body.password,
+                email: req.body.email,
+                age: req.body.age,
+                ranking: req.body.ranking,
+                playerId: req.body.playerId,
+                matchId: req.body.matchId,
+                coachId: req.body.coachId
+        
+             })
+                .then( rows => res.json(rows) )
+                .catch( err => res.status(500).json(err) );
+        }else{
+            res.status(403).json({ msg: "Jedino admin moze da dodaje igrace."});
+        }
+    })
+    .catch(err => res.status(500).json(err));
+   
 });
 
 route.get('/players/:id', (req, res) => {
@@ -56,10 +65,11 @@ route.get('/players/:id', (req, res) => {
 });
 
 route.put('/players/:id', (req, res) => {
-    
-    Players.findOne({ where: { id: req.params.id }})
+    Coaches.findOne({where: {id: req.coach.coachId}})
+    .then(coach => {
+        if(coach.role == "admin"){
+            Players.findOne({ where: { id: req.params.id }})
         .then( player => {
-            player.password = req.body.password;
             player.email = req.body.email;
             player.playerId = req.body.playerId;
             player.coachId = req.body.coachId;
@@ -72,18 +82,31 @@ route.put('/players/:id', (req, res) => {
                 .catch( err => res.status(500).json(err) );
         })
         .catch( err => res.status(500).json(err) );
+        }else{
+            res.status(403).json({ msg: "Jedino admin moze da menja podatke o igracima."});
+        }
+    })
+    .catch(err => res.status(500).json(err));
 
 });
 
 route.delete('/players/:id', (req, res) => {
-
-    Players.findOne({ where: { id: req.params.id } })
+    Coaches.findOne({where: {id: req.coach.coachId}})
+    .then(coach => {
+        if(coach.role == "admin"){
+            Players.findOne({ where: { id: req.params.id } })
         .then( player => {
             player.destroy()
                 .then( rows => res.json(rows) )
                 .catch( err => res.status(500).json(err) );
         })
         .catch( err => res.status(500).json(err) );
+        }else{
+            res.status(403).json({ msg: "Jedino admin moze da brise igrace."});
+        }
+    })
+    .catch(err => res.status(500).json(err));
+    
 });
 
 module.exports = route;
