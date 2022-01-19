@@ -108,9 +108,8 @@ function init() {
     document.getElementById("update-match").addEventListener("click", e =>{
         e.preventDefault();
         
-
+        matchId = document.getElementsByClassName('matches-dropdown')[1].value;
         const data = {
-            id: document.getElementsByClassName('matches-dropdown')[1].value,
             court: document.getElementById('court_update').value,
             date: document.getElementById('date_update').value,
             time: document.getElementById('time_update').value,
@@ -127,7 +126,7 @@ function init() {
             alert("Greska pri unosu.")
             return;
         }
-        fetch('http://127.0.0.1:8000/admin/matches/' + data.id, {
+        fetch('http://127.0.0.1:8000/admin/matches/' + matchId, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json',

@@ -108,9 +108,8 @@ function init() {
     document.getElementById("update-tournament").addEventListener("click", e =>{
         e.preventDefault();
         
-
+        tournamentId =  document.getElementsByClassName('tournaments-dropdown')[1].value;
         const data = {
-            id: document.getElementsByClassName('tournaments-dropdown')[1].value,
             startDate: document.getElementById('startDate_update').value,
             endDate: document.getElementById('endDate_update').value,
         }
@@ -126,7 +125,7 @@ function init() {
             alert("Greska pri unosu.")
             return;
         }
-        fetch('http://127.0.0.1:8000/admin/tournaments/' + data.id, {
+        fetch('http://127.0.0.1:8000/admin/tournaments/' + tournamentId, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json',

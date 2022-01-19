@@ -109,9 +109,8 @@ function init() {
     document.getElementById("update-player").addEventListener("click", e =>{
         e.preventDefault();
         
-
+        idOfPlayer = document.getElementsByClassName('players-dropdown')[1].value;
         const data = {
-            id: document.getElementsByClassName('players-dropdown')[1].value,
             playerId: document.getElementById('playerId_update').value,
             email: document.getElementById('email_update').value,
             age: document.getElementById('age_update').value,
@@ -131,7 +130,7 @@ function init() {
             alert("Greska pri unosu.")
             return;
         }
-        fetch('http://127.0.0.1:8000/admin/players/' + data.id, {
+        fetch('http://127.0.0.1:8000/admin/players/' + idOfPlayer, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json',

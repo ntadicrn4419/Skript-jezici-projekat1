@@ -66,9 +66,8 @@ function init() {
     document.getElementById("update-coach").addEventListener("click", e =>{
         e.preventDefault();
         
-
+        coachId = document.getElementsByClassName('coaches-dropdown')[1].value;
         const data = {
-            id: document.getElementsByClassName('coaches-dropdown')[1].value,
             email: document.getElementById('email_update').value,
             playerId: document.getElementById('playerId_update').value,
         }
@@ -84,7 +83,7 @@ function init() {
             alert("Greska pri unosu. Ostalo je prazno polje.")
             return;
         }
-        fetch('http://127.0.0.1:8000/admin/coaches/' + data.id, {
+        fetch('http://127.0.0.1:8000/admin/coaches/' + coachId, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json',

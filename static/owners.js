@@ -98,9 +98,8 @@ function init() {
     document.getElementById("update-owner").addEventListener("click", e =>{
         e.preventDefault();
         
-
+        ownerId = document.getElementsByClassName('owners-dropdown')[1].value;
         const data = {
-            id: document.getElementsByClassName('owners-dropdown')[1].value,
             email: document.getElementById('email_update').value,
             name: document.getElementById('name_update').value
         }
@@ -116,7 +115,7 @@ function init() {
             alert("Greska pri unosu.")
             return;
         }
-        fetch('http://127.0.0.1:8000/admin/owners/' + data.id, {
+        fetch('http://127.0.0.1:8000/admin/owners/' + ownerId, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json',
