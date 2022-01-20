@@ -49,17 +49,13 @@ function init() {
             tournamentId: document.getElementById('tournamentId').value
         }
 
-        let error = false;
-        for(el in data){
-            if(data[el] == "") {
-                error = true;
+        for(field in data){
+            if(data[field] == "") {
+                alert("Greska pri unosu. Polje: '" + field + "' je ostalo prazno");
+                return;
             }
         }
 
-        if(error){
-            alert("Greska pri unosu.")
-            return;
-        }
         fetch('http://127.0.0.1:8000/admin/matches', {
             method: 'POST',
             headers: { 
@@ -115,17 +111,13 @@ function init() {
             time: document.getElementById('time_update').value,
         }
 
-        let error = false;
-        for(el in data){
-            if(data[el] == "") {
-                error = true;
+        for(field in data){
+            if(data[field] == "") {
+                alert("Greska pri unosu. Polje: '" + field + "' je ostalo prazno");
+                return;
             }
         }
 
-        if(error){
-            alert("Greska pri unosu.")
-            return;
-        }
         fetch('http://127.0.0.1:8000/admin/matches/' + matchId, {
             method: 'PUT',
             headers: { 

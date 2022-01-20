@@ -11,23 +11,12 @@ module.exports = {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: false,
-        validate: {
-          len: { 
-             args: [2, 30],
-             msg: "The name length should be between 2 and 30 characters."
-          }
-       }
+        unique: false
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
-        validate: {
-          isEmail: {
-            msg: "Nije email"
-          }
-        }
+        unique: true
       },
       createdAt: {
         allowNull: false,

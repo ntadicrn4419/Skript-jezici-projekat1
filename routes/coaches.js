@@ -10,14 +10,6 @@ const route = express.Router();
 route.use(express.json());
 route.use(express.urlencoded({ extended: true }));
 
-const postCoachValidation = joi.object({
-    name: joi.string().min(1).required(),
-    email: joi.string().min(3).email().required(),
-    password: joi.number().integer().min(4).max(150).required(),
-    age: joi.number().integer().min(10).max(100).required(),
-    playerId: joi.number().integer().required(),
-});
-
 const putCoachValidation = joi.object({
     playerId: joi.number().integer().required(),
     email: joi.string().min(3).email().required()
@@ -26,7 +18,6 @@ const putCoachValidation = joi.object({
 function authToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-  
     if (token == null) return res.status(401).json({msg: "Token is null."});
   
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, coach) => {
@@ -46,7 +37,7 @@ route.get('/coaches', (req, res) => {
         .catch( err => res.status(500).json(err) );
         
 });
-
+/* NIJE POTREBNO ZATO STO COACH-EVE KREIRAM U post /register zahtevu koji je definisan u app_auth.js
 route.post('/coaches', (req, res) => {
     const val = postCoachValidation.validate(req.body);
     if(val.error){
@@ -63,6 +54,7 @@ route.post('/coaches', (req, res) => {
             .catch( err => res.status(500).json({msg: err.message}) );
     }
 });
+*/
 
 route.get('/coaches/:id', (req, res) => {
     Coaches.findOne({ where: { id: req.params.id }})
@@ -91,7 +83,7 @@ route.put('/coaches/:id', (req, res) => {
                 .catch( err => res.status(500).json({msg: err.message}) );
             }
         }else{
-            res.status(403).json({ msg: "Jedino admin moze da dodaje meceve."});
+            res.status(403).json({ msg: "Jedino admin moze da menja podatke o trenerima."});
         }
     })
     .catch(err => res.status(500).json({msg: err.message}));

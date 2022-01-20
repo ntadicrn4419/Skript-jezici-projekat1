@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="coaches.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="tables_style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="js_modules/coaches.js"></script>
     <title>Treneri</title> 
 </head>
 <body onload="init()">
     <h1>Treneri</h1>
-    <table id="coach-table">
+    <table id="coach-table" class="table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -28,22 +30,25 @@
             <label>Izaberite trenera koga zelite da izbrisete:</label>
             <br>
             <select name="coaches" class="coaches-dropdown"></select>
-            <br>
+            <br><br>
             <button type="submit" id="delete-coach">Izbrisi trenera</button>
         </form>   
     </div>
-    <h2>Izmenite trenera:</h2>
+    <h2>Izmeni trenera:</h2>
+    <h6>*Napomena: Morate popuniti sva data polja. Ukoliko neke podatke ne zelite da menjate popunite polja sa starim podacima.</h6>
     <div id="update-coach-form">
         <form action="/admin/coaches" method="put">
             <label>Izaberite trenera cije podatke zelite da izmenite:</label>
             <br>
             <select name="coaches" class="coaches-dropdown"></select>
+            <br><br>
+            <label>Unesite email:</label>
+            <input type="text" id="email_update" name="email_update" placeholder="Email" required/>
             <br>
-            <input type="text" id="email_update" name="email_update" placeholder="Unesite email" required/>
-            <br>
-            <input type="number" id="playerId_update" placeholder="Unesite ID igraca sa kojim ovaj trener radi" required/>
-            <br>
-            <button type="submit" id="update-match">Izmenite podatke o treneru</button>
+            <label>Unesite id igraca sa kojim ovaj trener radi:</label>
+            <input type="number" id="playerId_update" placeholder="ID igraca" required/>
+            <br><br>
+            <button type="submit" id="update-coach">Izmenite podatke o treneru</button>
         </form>   
     </div>
 </body>

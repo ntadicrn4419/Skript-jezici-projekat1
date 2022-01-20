@@ -49,16 +49,11 @@ function init() {
             ownerId: document.getElementById('ownerId').value
         }
 
-        let error = false;
-        for(el in data){
-            if(data[el] == "") {
-                error = true;
+        for(field in data){
+            if(data[field] == "") {
+                alert("Greska pri unosu. Polje: '" + field + "' je ostalo prazno");
+                return;
             }
-        }
-
-        if(error){
-            alert("Greska pri unosu.")
-            return;
         }
         fetch('http://127.0.0.1:8000/admin/tournaments', {
             method: 'POST',
@@ -114,16 +109,11 @@ function init() {
             endDate: document.getElementById('endDate_update').value,
         }
 
-        let error = false;
-        for(el in data){
-            if(data[el] == "") {
-                error = true;
+        for(field in data){
+            if(data[field] == "") {
+                alert("Greska pri unosu. Polje: '" + field + "' je ostalo prazno");
+                return;
             }
-        }
-
-        if(error){
-            alert("Greska pri unosu.")
-            return;
         }
         fetch('http://127.0.0.1:8000/admin/tournaments/' + tournamentId, {
             method: 'PUT',

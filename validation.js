@@ -41,6 +41,21 @@ function checkDate(value){
     return data;
 }
 
+function checkRole(value){
+
+    const data = {
+        allow: true,
+        message: ""
+    }
+    if(value != 'admin' && value != 'moderator' && value != 'regular'){
+        data.allow = false;
+        data.message = "Neispravna uloga. Uloga moze biti: 1. 'admin' 2. 'moderator' 3. 'regular' ";
+        return data;
+    }
+    return data;
+}
+
 module.exports = {
-      checkDate
+      checkDate,
+      checkRole
 };

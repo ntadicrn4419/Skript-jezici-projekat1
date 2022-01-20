@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="players.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="tables_style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="js_modules/players.js"></script>
     <title>Igraci</title> 
 </head>
 <body onload="init()">
     <h1>Igraci</h1>
-    <table id="player-table">
+    <table id="player-table" class="table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -28,20 +30,27 @@
     <h2>Dodaj novog igraca:</h2>
     <div id="new-player-form">
         <form action="/admin/players" method="post">
-            <input type="text" id="name" name="name" placeholder="Unesite ime igraca" required/>
+            <label>Unesite ime igraca:</label>
+            <input type="text" id="name" name="name" placeholder="Name" required/>
             <br>
-            <input type="number" id="age" name="age" min="5" max="100" step="1" placeholder="Unesite godine starosti igraca" required/>
+            <label>Unesite godine starosti igraca:</label>
+            <input type="number" id="age" name="age" placeholder="Age" required/>
             <br>
-            <input type="number" id="ranking" name="ranking" min="1" max="1000" step="1" placeholder="Unesite ranking igraca" required/>
+            <label>Unesite ranking igraca:</label>
+            <input type="number" id="ranking" name="ranking" placeholder="Ranking" required/>
             <br>
-            <input type="number" id="playerId" placeholder="Unesite ID igraca protiv koga ovaj igrac igra" required/>
+            <label>Unesite ID igraca protiv koga ovaj igrac igra u sledecem mecu:</label>
+            <input type="number" id="playerId" placeholder="Player opponent ID" required/>
             <br>
-            <input type="text" id="email" placeholder="Unesite email igraca" required />
+            <label>Unesite email igraca:</label>
+            <input type="text" id="email" placeholder="Email" required />
             <br>
-            <input type="number" id="matchId" placeholder="Unesite ID meca u kome ovaj igrac ucestvuje." required />
+            <label>Unesite ID sledeceg meca u kome ovaj igrac ucestvuje :</label>
+            <input type="number" id="matchId" placeholder="Match ID" required />
             <br>
-            <input type="number" id="coachId" placeholder="Unesite ID trenera sa kojim ovaj igrac radi" required />
-            <br>
+            <label>Unesite ID trenera sa kojim ovaj igrac radi:</label>
+            <input type="number" id="coachId" placeholder="Coach ID" required />
+            <br><br>
             <button type="submit" id="add-player">Dodaj igraca</button>
         </form>   
     </div>
@@ -51,29 +60,36 @@
             <label>Izaberite igraca koga zelite da izbrisete:</label>
             <br>
             <select name="players" class="players-dropdown"></select>
-            <br>
+            <br><br>
             <button type="submit" id="delete-player">Izbrisi igraca</button>
         </form>   
     </div>
     <h2>Izmeni igraca:</h2>
+    <h6>*Napomena: Morate popuniti sva data polja. Ukoliko neke podatke ne zelite da menjate popunite polja sa starim podacima.</h6>
     <div id="update-player-form">
         <form action="/admin/players" method="put">
             <label>Izaberite igraca cije podatke zelite da izmenite:</label>
             <br>
             <select name="players" class="players-dropdown"></select>
+            <br><br>
+            <label>Unesite godine starosti igraca:</label>
+            <input type="number" id="age_update" name="age_update" placeholder="Age" required/>
             <br>
-            <input type="number" id="age_update" name="age_update" min="5" max="100" step="1" placeholder="Unesite godine starosti igraca" required/>
+            <label>Unesite ID igraca protiv koga ovaj igrac igra u sledecem mecu:</label>
+            <input type="number" id="playerId_update" placeholder="Player opponent ID" required/>
             <br>
-            <input type="number" id="playerId_update" placeholder="Unesite ID igraca protiv koga ovaj igrac igra" required/>
+            <label>Unesite email igraca:</label>
+            <input type="text" id="email_update" placeholder="Email" required />
             <br>
-            <input type="text" id="email_update" placeholder="Unesite email igraca" required />
+            <label>Unesite ranking igraca:</label>
+            <input type="number" id="ranking_update" name="ranking" placeholder="Ranking" required/>
             <br>
-            <input type="number" id="ranking_update" name="ranking" min="1" max="1000" step="1" placeholder="Unesite ranking igraca" required/>
+            <label>Unesite ID sledeceg meca u kome ovaj igrac ucestvuje :</label>
+            <input type="number" id="matchId_update" placeholder="Match ID" required />
             <br>
-            <input type="number" id="matchId_update" placeholder="Unesite ID meca u kome ovaj igrac ucestvuje." required />
-            <br>
-            <input type="number" id="coachId_update" placeholder="Unesite ID trenera sa kojim ovaj igrac radi" required />
-            <br>
+            <label>Unesite ID trenera sa kojim ovaj igrac radi :</label>
+            <input type="number" id="coachId_update" placeholder="Coach ID" required />
+            <br><br>
             <button type="submit" id="update-player">Izmenite podatke o igracu</button>
         </form>   
     </div>

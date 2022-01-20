@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="owners.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="tables_style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="js_modules/owners.js"></script>
     <title>Vlasnici turnira</title> 
 </head>
 <body onload="init()">
     <h1>Vlasnici turnira</h1>
-    <table id="owner-table">
+    <table id="owner-table" class="table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -23,10 +25,12 @@
     <h2>Dodaj novog vlasnika:</h2>
     <div id="new-owner-form">
         <form action="/admin/owners" method="post">
-            <input type="text" id="name" name="name" placeholder="Unesite ime vlasnika" required/>
+            <label>Unesite ime vlasnika turnira:</label>
+            <input type="text" id="name" name="name" placeholder="Name" required/>
             <br>
-            <input type="text" id="email" placeholder="Unesite email vlasnika" required />
-            <br>
+            <label>Unesite email vlasnika turnira:</label>
+            <input type="text" id="email" placeholder="Email" required />
+            <br><br>
             <button type="submit" id="add-owner">Dodaj vlasnika</button>
         </form>   
     </div>
@@ -36,21 +40,24 @@
             <label>Izaberite vlasnika koga zelite da izbrisete:</label>
             <br>
             <select name="owners" class="owners-dropdown"></select>
-            <br>
+            <br><br>
             <button type="submit" id="delete-owner">Izbrisi vlasnika</button>
         </form>   
     </div>
     <h2>Izmeni vlasnika:</h2>
+    <h6>*Napomena: Morate popuniti sva data polja. Ukoliko neke podatke ne zelite da menjate popunite polja sa starim podacima.</h6>
     <div id="update-owner-form">
         <form action="/admin/owners" method="put">
             <label>Izaberite vlasnika cije podatke zelite da izmenite:</label>
             <br>
             <select name="owners" class="owners-dropdown"></select>
+            <br><br>
+            <label>Unesite ime vlasnika:</label>
+            <input type="text" id="name_update" name="name_update" placeholder="Name" required/>
             <br>
-            <input type="text" id="name_update" name="name_update" placeholder="Unesite ime vlasnika" required/>
-            <br>
-            <input type="text" id="email_update" placeholder="Unesite email vlasnika" required />
-            <br>
+            <label>Unesite email vlasnika:</label>
+            <input type="text" id="email_update" placeholder="Email" required />
+            <br><br>
             <button type="submit" id="update-owner">Izmenite podatke o vlasniku</button>
         </form>   
     </div>

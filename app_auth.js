@@ -3,6 +3,10 @@ const { sequelize, Coaches } = require('./models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+
+const joi = require('joi');
+const {checkRole} = require('./validation.js');
+
 require('dotenv').config();
 
 const app = express();
@@ -15,6 +19,25 @@ var corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
+const postCoachValidation = joi.object({
+    name: joi.string().min(1).required(),
+    email: joi.string().min(3).email().required(),
+    password: joi.string().min(4).max(150).required(),
+    age: joi.number().integer().min(10).max(100).required(),
+    playerId: joi.number().integer().required(),
+    role: joi.custom((value, helper) => {
+
+        response = checkRole(value);
+        if (response.allow == false) {
+            return helper.message(response.message);
+        } else {
+            return value;
+        }
+
+    })
+});
+
+
 app.post('/register', (req, res) => {
 
     const obj = {
@@ -25,21 +48,25 @@ app.post('/register', (req, res) => {
         playerId: req.body.playerId,
         role: req.body.role
     };
-
-    Coaches.create(obj).then( rows => {
+    const val = postCoachValidation.validate(obj);
+    if(val.error){
+      res.status(400).json({ msg: val.error.message});
+    }else{
+        Coaches.create(obj).then( rows => {
         
-        const coa = {
-            coachId: rows.id,
-            coach: rows.email
-        };
-
-        const token = jwt.sign(coa, process.env.ACCESS_TOKEN_SECRET);
-
-        console.log(token);
-        
-        res.json({ token: token });
-
-    }).catch( err => res.status(500).json({msg: "Input error or user with such email already exists"}) );
+            const coa = {
+                coachId: rows.id,
+                coach: rows.email
+            };
+    
+            const token = jwt.sign(coa, process.env.ACCESS_TOKEN_SECRET);
+    
+            console.log(token);
+            
+            res.json({ token: token });
+    
+        }).catch( err => res.status(500).json({msg: err.message}) );
+    }
 });
 
 app.post('/login', (req, res) => {

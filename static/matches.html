@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="matches.js"></script>
-    <title>Matches</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="tables_style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="js_modules/matches.js"></script>
+    <title>Mecevi</title> 
 </head>
 <body onload="init()">
     <h1>MECEVI</h1>
-    <table id="match-table">
+    <table id="match-table" class="table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -26,16 +28,21 @@
     <h2>Dodaj novi mec:</h2>
     <div id="new-match-form">
         <form action="/admin/matches" method="post">
-            <input type="number" id="court" min="1" max="15" step="1" name="court" placeholder="Enter court number" required/>
+            <label>Unesite broj terena:</label>
+            <input type="number" id="court" step="1" name="court" placeholder="Court" required/>
             <br>
-            <input type="text" id="date" name="date" placeholder="Enter date of the match" required/>
+            <label>Unesite datum meca u formatu dd-mm-yyyy:</label>
+            <input type="text" id="date" name="date" placeholder="Date" required/>
             <br>
-            <input type="number" id="time" min="1" max="24" step="1" placeholder="Enter time of the match (exact hour)" required/>
+            <label>Unesite vreme meca - pun sat(broj od 1 do 24):</label>
+            <input type="number" id="time" step="1" placeholder="Time" required/>
             <br>
-            <input type="number" id="round" min="1" max="7" step="1" placeholder="Round" required />
+            <label>Unesite rundu(broj od 1 do 7 - 7 je prvo kolo, 1 je finale)</label>
+            <input type="number" id="round" step="1" placeholder="Round" required /> 
             <br>
+            <label>Unesite id turnira kome ovaj mec pripada:</label>
             <input type="number" id="tournamentId" placeholder="Tournament ID" required />
-            <br>
+            <br><br>
             <button type="submit" id="add-match">Add match</button>
         </form>   
     </div>
@@ -46,24 +53,28 @@
             <label>Izaberite mec koji zelite da izbrisete:</label>
             <br>
             <select name="matches" class="matches-dropdown"></select>
-            <br>
+            <br><br>
             <button type="submit" id="delete-match">Delete match</button>
         </form>   
     </div>
 
     <h2>Izmeni mec:</h2>
+    <h6>*Napomena: Morate popuniti sva data polja. Ukoliko neke podatke ne zelite da menjate popunite polja sa starim podacima.</h6>
     <div id="update-match-form">
         <form action="/admin/matches" method="put">
             <label>Izaberite mec koji zelite da izmenite:</label>
             <br>
             <select name="matches" class="matches-dropdown"></select>
+            <br><br>
+            <label>Unesite broj terena:</label>
+            <input type="number" id="court_update" name="court_update" placeholder="Court" required/>
             <br>
-            <input type="number" id="court_update" min="1" max="15" step="1" name="court_update" placeholder="Enter court number" required/>
+            <label>Unesite datum meca u formatu dd-mm-yyyy:</label>
+            <input type="text" id="date_update" name="date_update" placeholder="Date" required/>
             <br>
-            <input type="text" id="date_update" name="date_update" placeholder="Enter date of the match" required/>
-            <br>
-            <input type="number" id="time_update" min="1" max="24" step="1" placeholder="Enter time of the match (exact hour)" required/>
-            <br>
+            <label>Unesite vreme meca - pun sat(broj od 1 do 24): </label>
+            <input type="number" id="time_update" placeholder="Time" required/>
+            <br><br>
             <button type="submit" id="update-match">Update match data</button>
         </form>   
     </div>

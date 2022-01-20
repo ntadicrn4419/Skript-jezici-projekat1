@@ -65,24 +65,20 @@ function init() {
 
     document.getElementById("update-coach").addEventListener("click", e =>{
         e.preventDefault();
-        
+
         coachId = document.getElementsByClassName('coaches-dropdown')[1].value;
         const data = {
             email: document.getElementById('email_update').value,
             playerId: document.getElementById('playerId_update').value,
         }
 
-        let error = false;
-        for(el in data){
-            if(data[el] == "") {
-                error = true;
+        for(field in data){
+            if(data[field] == "") {
+                alert("Greska pri unosu. Polje: '" + field + "' je ostalo prazno");
+                return;
             }
         }
-
-        if(error){
-            alert("Greska pri unosu. Ostalo je prazno polje.")
-            return;
-        }
+        
         fetch('http://127.0.0.1:8000/admin/coaches/' + coachId, {
             method: 'PUT',
             headers: { 

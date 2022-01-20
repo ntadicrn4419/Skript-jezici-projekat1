@@ -17,58 +17,24 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: false,
-      validate: {
-        len: { 
-           args: [2, 30],
-           msg: "The name length should be between 2 and 30 characters."
-        }
-     }
+      unique: false
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: { 
-           args: [4, 100],
-           msg: "The password length should be between 4 and 100 characters."
-        }
-     }
+      allowNull: false
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: {
-          msg: "Nije email"
-        }
-      }
+      unique: true
     },
     age: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate:{
-        isInt:{
-          msg: "Unos broja godina nije validan. Nije broj."
-        },
-        checkAge(value) {
-          if (value < 5 || value >  100) {
-            throw new Error('Neispravan unos broja godina');
-          }
-        }
-      }
+      allowNull: false
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        checkRole(value){
-          if(value != 'admin' && value != 'moderator' && value != 'regular'){
-            throw new Error('Neispravna uloga. Uloga moze biti: 1. admin 2. moderator 3. regular');
-          }
-        }
-      }
+      allowNull: false
     }
   }, {
     sequelize,

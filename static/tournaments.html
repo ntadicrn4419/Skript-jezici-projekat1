@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="tournaments.js"></script>
-    <title>Tournaments</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="tables_style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="js_modules/tournaments.js"></script>
+    <title>Turniri</title> 
 </head>
 <body onload="init()">
     <h1>TURNIRI</h1>
-    <table id="tournament-table">
+    <table id="tournament-table" class="table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -27,17 +29,22 @@
     <h2>Dodaj novi Turnir:</h2>
     <div id="new-tournament-form">
         <form action="/admin/tournaments" method="post">
-            <input type="text" id="name" name="name" placeholder="Enter name of the tournament" required/>
+            <label>Unesite naziv turnira:</label>
+            <input type="text" id="name" name="name" placeholder="Name" required/>
             <br>
-            <input type="text" id="location" name="location" placeholder="Enter location of the tournament" required/>
+            <label>Unesite lokaciju turnira:</label>
+            <input type="text" id="location" name="location" placeholder="Location" required/>
             <br>
-            <input type="text" id="startDate" name="startDate" placeholder="Enter start date of the tournament" required/>
+            <label>Unesite datum pocetka turnira u formatu dd-mm-yyyy:</label>
+            <input type="text" id="startDate" name="startDate" placeholder="Start date" required/>
             <br>
-            <input type="text" id="endDate" name="endDate" placeholder="Enter end date of the tournament" required/>
+            <label>Unesite datum kraja turnira u formatu dd-mm-yyyy:</label>
+            <input type="text" id="endDate" name="endDate" placeholder="End date" required/>
             <br>
-            <input type="number" id="ownerId" name="ownerId" placeholder="Enter tournament owner ID" required/>
-            <br>
-            <button type="submit" id="add-tournament">Add tournament</button>
+            <label>Unesite ID vlasnika turnira:</label>
+            <input type="number" id="ownerId" name="ownerId" placeholder="Owner ID" required/>
+            <br><br>
+            <button type="submit" id="add-tournament">Dodajte turnir</button>
         </form>   
     </div>
 
@@ -47,22 +54,25 @@
             <label>Izaberite turnir koji zelite da izbrisete:</label>
             <br>
             <select name="tournaments" class="tournaments-dropdown"></select>
-            <br>
-            <button type="submit" id="delete-tournament">Delete tournament</button>
+            <br><br>
+            <button type="submit" id="delete-tournament">Izbrisite turnir</button>
         </form>   
     </div>
 
     <h2>Izmeni turnir:</h2>
+    <h6>*Napomena: Morate popuniti sva data polja. Ukoliko neke podatke ne zelite da menjate popunite polja sa starim podacima.</h6>
     <div id="update-tournament-form">
         <form action="/admin/tournaments" method="put">
             <label>Izaberite turnir koji zelite da izmenite:</label>
             <select name="tournaments" class="tournaments-dropdown"></select>
+            <br><br>
+            <label>Unesite datum pocetka turnira u formatu dd-mm-yyyy:</label>
+            <input type="text" id="startDate_update" name="startDate_update" placeholder="Start date" required/>
             <br>
-            <input type="text" id="startDate_update" name="startDate_update" placeholder="Enter start date of the tournament" required/>
-            <br>
-            <input type="text" id="endDate_update" name="endDate_update" placeholder="Enter end date of the tournament" required/>
-            <br>
-            <button type="submit" id="update-tournament">Update tournament data</button>
+            <label>Unesite datum kraja turnira u formatu dd-mm-yyyy:</label>
+            <input type="text" id="endDate_update" name="endDate_update" placeholder="End date" required/>
+            <br><br>
+            <button type="submit" id="update-tournament">Izmenite podatke o turniru</button>
         </form>   
     </div>
 
