@@ -2,17 +2,28 @@ const express = require('express');
 const { sequelize, Coaches } = require('./models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const cors = require('cors');
 
 const joi = require('joi');
 const {checkRole} = require('./validation.js');
 
+const cors = require('cors');
+const http = require('http');
+const { Server } = require("socket.io");
 require('dotenv').config();
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: 'http://127.0.0.1:8080',
+        methods: ['GET', 'POST'],
+        credentials: true
+    },
+    allowEIO3: true
+});
 
 var corsOptions = {
-    origin: 'http://127.0.0.1:8000',
+    origin: 'http://127.0.0.1:8080',
     optionsSuccessStatus: 200
 }
 
@@ -36,7 +47,6 @@ const postCoachValidation = joi.object({
 
     })
 });
-
 
 app.post('/register', (req, res) => {
 

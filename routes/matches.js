@@ -43,6 +43,12 @@ const putMatchValidation = joi.object({
 });
 
 function authToken(req, res, next) {
+
+    if (req.method == 'GET'){
+        next();
+        return;
+    }
+
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
   
